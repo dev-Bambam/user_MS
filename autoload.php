@@ -14,5 +14,7 @@ spl_autoload_register(function ($className) {
     // Check if the file exists, then require it
     if (file_exists($file)) {
         require $file;
+    } else {
+        echo "Class file not found: $file\n";  // Debugging statement
     }
 });

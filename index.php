@@ -2,7 +2,6 @@
 require_once 'autoload.php';
 
 use Controllers\RegistrationController;
-
 $controller = new RegistrationController();
 
 // Example registration attempts

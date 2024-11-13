@@ -1,6 +1,5 @@
-<?php
+<?php 
 namespace Controllers;
-
 use Models\User;
 use Factories\UserFactory;
 use Models\Database;
