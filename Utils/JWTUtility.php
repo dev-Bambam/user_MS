@@ -34,7 +34,7 @@ return JWT::encode($payload, self::$secretKey, 'HS256');    }
     public static function decodeToken(string $token)
     {
         try {
-$decoded = JWT::decode($token, new \Firebase\JWT\Key(self::$secretKey, 'HS256'));             return $decoded; // Return the decoded token
+$decoded = JWT::decode($token, new \Firebase\JWT\Key(self::$secretKey, 'HS256'));              return $decoded; // Return the decoded token
         } catch (\Exception $e) {
             return null; // Invalid token
         } 
