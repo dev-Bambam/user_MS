@@ -17,23 +17,29 @@ class ProfileController
             return $this->sendResponse(["error" => "Unauthorized"], 401);
         }
 
-        // Decode the JWT token to get user ID
-        $userId = JWTUtility::decodeToken($jwt);
+        try {
+            // Decode the JWT token to get user ID
+            $decodedToken = JWTUtility::decodeToken($jwt);
+            $userId = $decodedToken->userId;
 
-        if (!$userId) {
-            return $this->sendResponse(["error" => "Invalid token"], 401);
+            if (!$userId) {
+                return $this->sendResponse(["error" => "Invalid token"], 401);
+            }
+
+            // Fetch user data from the database
+            $user = new User('', '', '');
+            $userData = $user->getUserById($userId);
+
+            if (!$userData) {
+                return $this->sendResponse(["error" => "User not found"], 404);
+            }
+
+            // Return the profile data
+            return $this->sendResponse($userData, 200);
+        } catch (\Exception $e) {
+            // Log error message if desired (e.g., using error logging library)
+            return $this->sendResponse(["error" => "Internal Server Error"], 500);
         }
-
-        // Fetch user data from the database
-        // $user = new User();
-        $userData = $user->getUserById($userId);
-
-        if (!$userData) {
-            return $this->sendResponse(["error" => "User not found"], 404);
-        }
-
-        // Return the profile data
-        return $this->sendResponse($userData, 200);
     }
 
     // Method to update the user's profile
@@ -54,14 +60,16 @@ class ProfileController
         }
 
         // Decode the JWT token to get user ID
-        $userId = JWTUtility::decodeJWT($jwt);
+        $userId = JWTUtility::decodeToken($jwt);
 
         if (!$userId) {
             return $this->sendResponse(["error" => "Invalid token"], 401);
         }
 
         // Update the user's profile data
-        $user = new User();
+        $user = new User($data['name'], $data['email'], $data['password']);
+        $decodedToken = JWTUtility::decodeToken($jwt);
+        $userId = $decodedToken->userId;
         $updateResult = $user->updateUserProfile($userId, $data);
 
         if ($updateResult) {

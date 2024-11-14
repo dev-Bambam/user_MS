@@ -37,4 +37,45 @@ class User
             return false;
         }
     }
+    /**
+     * Retrieves a user from the database by their ID.
+     *
+     * @param int $id The ID of the user to retrieve.
+     * @return array|null The user data as an associative array, or null if not found.
+     */
+    public function getUserById($id)
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (\PDOException $e) {
+            // Log error message if desired (e.g., using error logging library)
+            return null;
+        }
+    }
+    
+    /**
+     * Updates a user's profile data in the database.
+     *
+     * @param int $id The ID of the user to update.
+     * @param array $data Associative array containing the user data to update (e.g., name, email).
+     * @return bool True if the update was successful, False otherwise.
+     */
+    public function updateUserProfile($id, $data)
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->prepare("UPDATE users SET name = :name, email = :email WHERE id = :id");
+            $stmt->bindParam(':name', $data['name']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':id', $id);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            // Log error message if desired (e.g., using error logging library)
+            return false;
+        }
+    }
 }
