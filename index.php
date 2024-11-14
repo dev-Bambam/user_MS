@@ -1,17 +1,17 @@
 <?php
 require_once 'autoload.php';
+require_once 'vendor/autoload.php';
 
-use Controllers\RegistrationController;
-$controller = new RegistrationController();
 
-// Example registration attempts
-$testCases = [
-    ['username' => 'new_user', 'email' => 'invalid_email', 'password' => '123'], // Invalid email
-    ['username' => 'new_user', 'email' => 'test@example.com', 'password' => '123'], // Weak password
-    ['username' => 'user', 'email' => 'test@example.com', 'password' => 'securepassword'], // Valid
+use Controllers\LoginController;
+
+$loginController = new LoginController();
+
+// Test login attempt with email and password
+$loginData = [
+    'email' => 'test@example.com', // Replace with a registered user's email
+    'password' => 'securepassword' // Replace with the correct password for that user
 ];
 
-foreach ($testCases as $data) {
-    $response = $controller->register($data);
-    echo json_encode($response) . PHP_EOL;
-}
+$response = $loginController->login($loginData);
+echo json_encode($response) . PHP_EOL;

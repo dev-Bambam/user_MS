@@ -22,7 +22,7 @@ class RegistrationController
         if (!empty($errors)) {
             return ['status' => 'error', 'errors' => $errors];
         }
-
+  
         // Step 2: Check for existing email or username
         $db = Database::getInstance()->getConnection();
         if ($this->isDuplicateUser($requestData['email'], $requestData['username'], $db)) {
