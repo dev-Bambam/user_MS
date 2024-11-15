@@ -2,6 +2,7 @@
 namespace Factories;
 
 use Models\User;
+use Models\AdminUser;
 
 class UserFactory
 {
@@ -12,10 +13,11 @@ class UserFactory
      * @param array $data Associative array containing user data
      * @return User|null Returns an instance of User or null if type is invalid
      */
-    public static function createUser(string $type, array $data): ?User
+    public static function createUser(array $data, $type = 'regular'): ?User
     {
         return match ($type) {
             'regular' => new User($data['username'], $data['email'], $data['password']),
+            'admin' => new AdminUser($data['username'], $data['email'], $data['password'], $data['role']),
             default => null,
         };
     }

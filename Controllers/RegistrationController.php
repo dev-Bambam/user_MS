@@ -18,26 +18,23 @@ class RegistrationController
     public function register(array $requestData): array
     {
         // Step 1: Validate input data
-        $errors = $this->validateData($requestData);
-        if (!empty($errors)) {
+        if ($errors = $this->validateData($requestData)) {
+            http_response_code(400);
             return ['status' => 'error', 'errors' => $errors];
         }
-  
+
         // Step 2: Check for existing email or username
         $db = Database::getInstance()->getConnection();
         if ($this->isDuplicateUser($requestData['email'], $requestData['username'], $db)) {
             return ['status' => 'error', 'message' => 'Username or email already in use.'];
         }
 
-        // Step 3: Create user instance using the Factory pattern
-        $user = UserFactory::createUser('regular', $requestData);
+        // Step 3: Create and save user instance using the Factory pattern
+        $user = UserFactory::createUser( $requestData);
 
-        // Step 4: Attempt to save the new user to the database
-        if ($user->save()) {
-            return ['status' => 'success', 'message' => 'User registered successfully.'];
-        } else {
-            return ['status' => 'error', 'message' => 'Failed to register user.'];
-        }
+        return $user->save() ? 
+            ['status' => 'success', 'message' => 'User registered successfully.'] :
+            ['status' => 'error', 'message' => 'Failed to register user.'];
     }
 
     /**

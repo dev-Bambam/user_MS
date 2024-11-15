@@ -9,11 +9,13 @@ class User
     private $username;
     private $email;
     private $password;
+    protected $role;
 
-    public function __construct($username, $email, $password)
+    public function __construct($username, $email, $password,$role = 'regular')
     {
         $this->username = $username;
         $this->email = $email;
+        $this->role = $role;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
 
@@ -26,7 +28,7 @@ class User
     {
         try {
             $db = Database::getInstance()->getConnection();
-            $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+            $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)");
             $stmt->bindParam(':username', $this->username);
             $stmt->bindParam(':email', $this->email);
             $stmt->bindParam(':password', $this->password);

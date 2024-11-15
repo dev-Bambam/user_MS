@@ -1,7 +1,7 @@
 <?php
 namespace routes;
 class Router
-{
+{ 
     private $routes = [];
     private $middleware = [];
 
@@ -62,20 +62,23 @@ class Router
     public function run()
     {
         $method = $_SERVER['REQUEST_METHOD'];
-        $path = $_SERVER['REQUEST_URI'];
+        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         if (isset($this->routes[$method][$path])) {
             $route = $this->routes[$method][$path];
 
-            // Apply middleware
+            // Apply each middleware
             foreach ($route['middleware'] as $middleware) {
-                $middleware['callback']();
+                $middlewareInstance = new $middleware();
+                $middlewareInstance->handle();
             }
 
+            // Execute the route's callback
             $route['callback']();
         } else {
             http_response_code(404);
             echo 'Not Found';
         }
     }
+
 }
