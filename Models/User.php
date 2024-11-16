@@ -11,7 +11,7 @@ class User
     private $password;
     protected $role;
 
-    public function __construct($username, $email, $password,$role = 'regular')
+    public function __construct($username, $email, $password,$role = 'user')
     {
         $this->username = $username;
         $this->email = $email;
@@ -32,10 +32,9 @@ class User
             $stmt->bindParam(':username', $this->username);
             $stmt->bindParam(':email', $this->email);
             $stmt->bindParam(':password', $this->password);
-
+            $stmt->bindParam(':role', $this->role);
             return $stmt->execute();
         } catch (\PDOException $e) {
-            // Log error message if desired (e.g., using error logging library)
             return false;
         }
     }

@@ -13,37 +13,42 @@ class RegistrationController
      * Registers a new user based on provided data.
      *
      * @param array $requestData Array of user data (e.g., username, email, password)
-     * @return array Response array with success or error message
+     * @return string Response JSON with success or error message
      */
-    public function register(array $requestData): array
+    public function register(array $requestData): String
     {
+        echo json_encode(['status' => 'success', 'message' => 'Request received.']);
         // Step 1: Validate input data
-        if ($errors = $this->validateData($requestData)) {
+        if ($errors = $this->validateData($requestData)) { 
             http_response_code(400);
-            return ['status' => 'error', 'errors' => $errors];
-        }
+            return json_encode(['status' => 'error', 'errors' => $errors]);
+        }  
 
         // Step 2: Check for existing email or username
         $db = Database::getInstance()->getConnection();
         if ($this->isDuplicateUser($requestData['email'], $requestData['username'], $db)) {
-            return ['status' => 'error', 'message' => 'Username or email already in use.'];
+            return json_encode(['status' => 'error', 'message' => 'Username or email already in use.']);
         }
-
+        
         // Step 3: Create and save user instance using the Factory pattern
         $user = UserFactory::createUser( $requestData);
+        $user->save();
 
-        return $user->save() ? 
-            ['status' => 'success', 'message' => 'User registered successfully.'] :
-            ['status' => 'error', 'message' => 'Failed to register user.'];
+        if ($user->save()) {
+            return json_encode(['status' => 'success', 'message' => 'User registered successfully.']);
+        } else {
+            return json_encode(['status' => 'error', 'message' => 'User registration failed.']);
+        }
+        
     }
 
     /**
      * Validates registration data.
      *
      * @param array $data User data to validate
-     * @return array List of validation errors, empty if none found
+     * @return string List of validation errors, empty if none found
      */
-    private function validateData(array $data): array
+    private function validateData(array $data): string
     {
         $errors = [];
 
@@ -59,9 +64,8 @@ class RegistrationController
             $errors['password'] = 'Password must be at least 6 characters long.';
         }
 
-        return $errors;
+        return json_encode($errors);
     }
-
     /**
      * Checks if a user with the given email or username already exists.
      *
