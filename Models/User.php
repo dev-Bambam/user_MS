@@ -28,13 +28,28 @@ class User
     {
         try {
             $db = Database::getInstance()->getConnection();
+            if (!$db) {
+                throw new \Exception("Database connection is null.");
+            }
+
             $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)");
+            if (!$stmt) {
+                throw new \Exception("Failed to prepare SQL statement.");
+            }
+
             $stmt->bindParam(':username', $this->username);
             $stmt->bindParam(':email', $this->email);
             $stmt->bindParam(':password', $this->password);
             $stmt->bindParam(':role', $this->role);
+
             return $stmt->execute();
         } catch (\PDOException $e) {
+            error_log("PDO Error: " . $e->getMessage());
+            echo "Error: " . $e->getMessage();
+            return false;
+        } catch (\Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            echo "Error: " . $e->getMessage();
             return false;
         }
     }

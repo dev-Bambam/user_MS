@@ -17,7 +17,6 @@ class RegistrationController
      */
     public function register(array $requestData): String
     {
-        echo json_encode(['status' => 'success', 'message' => 'Request received.']);
         // Step 1: Validate input data
         if ($errors = $this->validateData($requestData)) { 
             http_response_code(400);
@@ -25,20 +24,17 @@ class RegistrationController
         }  
 
         // Step 2: Check for existing email or username
-        $db = Database::getInstance()->getConnection();
-        if ($this->isDuplicateUser($requestData['email'], $requestData['username'], $db)) {
-            return json_encode(['status' => 'error', 'message' => 'Username or email already in use.']);
-        }
+        // $db = Database::getInstance()->getConnection();
+        // if ($this->isDuplicateUser($requestData['email'], $requestData['username'], $db)) {
+        //     return json_encode(['status' => 'error', 'message' => 'Username or email already in use.']);
+        // }
         
         // Step 3: Create and save user instance using the Factory pattern
         $user = UserFactory::createUser( $requestData);
-        $user->save();
-
-        if ($user->save()) {
-            return json_encode(['status' => 'success', 'message' => 'User registered successfully.']);
-        } else {
-            return json_encode(['status' => 'error', 'message' => 'User registration failed.']);
-        }
+        $response = $user->save()
+            ? ['status' => 'success', 'message' => 'User registered successfully.']
+            : ['status' => 'error', 'message' => 'User registration failed.'];
+        return json_encode($response);
         
     }
 
@@ -46,25 +42,25 @@ class RegistrationController
      * Validates registration data.
      *
      * @param array $data User data to validate
-     * @return string List of validation errors, empty if none found
+     * @return array List of validation errors, empty if none found
      */
-    private function validateData(array $data): string
+    private function validateData(array $data): array
     {
         $errors = [];
 
-        if (empty($data['username']) || strlen($data['username']) < 3) {
+        if (strlen($data['username'] ?? '') < 3) {
             $errors['username'] = 'Username must be at least 3 characters long.';
         }
 
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Invalid email format.';
+        if (!filter_var($data['email'] ?? '', FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'Email is required and must be a valid email address.';
         }
 
-        if (empty($data['password']) || strlen($data['password']) < 6) {
+        if (strlen($data['password'] ?? '') < 6) {
             $errors['password'] = 'Password must be at least 6 characters long.';
         }
 
-        return json_encode($errors);
+        return $errors;
     }
     /**
      * Checks if a user with the given email or username already exists.

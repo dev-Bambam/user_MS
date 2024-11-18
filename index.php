@@ -18,7 +18,7 @@ $router->post('/index/register', function () {
     $requestData = json_decode(file_get_contents('php://input'), true);
     $controller = new RegistrationController();
     $controller->register($requestData);
-    // echo json_encode(['status' => 'success', 'message' => 'Request received.']);
+    echo $controller->register($requestData);
 }) ;
 
 // Run the router
