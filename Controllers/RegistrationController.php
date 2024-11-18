@@ -10,14 +10,14 @@ use Models\Database;
 class RegistrationController
 {
     /**
-     * Registers a new user based on provided data.
+     * Handles user registration, including validation and response generation.
      *
-     * @param array $requestData Array of user data (e.g., username, email, password)
-     * @return string Response JSON with success or error message
+     * @param array $requestData Associative array containing user registration data
+     * @return string JSON response containing registration result (success or error)
      */
     public function register(array $requestData): string
     {
-        // Step 1: Validate input data
+        // Step 1: Validate input data (including first and last name)
         if ($errors = $this->validateData($requestData)) {
             http_response_code(400);
             return json_encode(['status' => 'error', 'errors' => $errors]);
@@ -30,6 +30,7 @@ class RegistrationController
             : ['status' => 'error', 'message' => 'User registration failed.'];
         return json_encode($response);
     }
+
     /**
      * Validates registration data.
      *

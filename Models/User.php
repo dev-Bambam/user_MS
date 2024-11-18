@@ -5,64 +5,67 @@ use Models\Database;
 use PDO;
 
 class User
-{
+{   private $first_name;
+    private $last_name;
     private $username;
     private $email;
     private $password;
     protected $role;
 
-    public function __construct($username, $email, $password,$role = 'user')
+    public function __construct($username, $email, $password, $first_name, $last_name, $role = 'user')
     {
         $this->username = $username;
         $this->email = $email;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
         $this->role = $role;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
 
+
+
     /**
-     * Saves the user data to the database.
-     *
-     * @return bool True on success, False on failure
+     * Save the user to the database.
+     * 
+     * Checks for duplicate username or email before inserting the user.
+     * 
+     * @return bool True if the user was inserted successfully, False if a duplicate was found or an error occurred.
      */
     public function save(): bool
     {
-        error_log("Saving user: username=$this->username, email=$this->email, role=$this->role");
         try {
-            // Get database connection
-            $db = Database::getInstance()->getConnection();
-            if (!$db) {
+            $connection = Database::getInstance()->getConnection();
+            if (!$connection) {
                 throw new \Exception("Database connection is null.");
             }
 
-            // Check for duplicates (username and email)
-            error_log("Checking for duplicates");
-            $stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
-            $stmt->bindParam(':username', $this->username);
-            $stmt->bindParam(':email', $this->email);
-            $stmt->execute();
-            if ($stmt->fetchColumn() > 0) {
-                // Duplicate entry found
-                error_log("Duplicate entry found, aborting insert");
-                return false;  // Prevent insert and return false
+            // Check for duplicate username or email
+            $duplicateCheckQuery = "SELECT COUNT(*) FROM users WHERE username = :username OR email = :email";
+            $duplicateCheckStmt = $connection->prepare($duplicateCheckQuery);
+            $duplicateCheckStmt->bindParam(':username', $this->username);
+            $duplicateCheckStmt->bindParam(':email', $this->email);
+            $duplicateCheckStmt->execute();
+            
+            if ($duplicateCheckStmt->fetchColumn() > 0) {
+                return false; // Duplicate found, abort insert
             }
 
-            // Proceed with inserting the new user
-            error_log("Creating new user");
-            $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)");
-            $stmt->bindParam(':username', $this->username);
-            $stmt->bindParam(':email', $this->email);
-            $stmt->bindParam(':password', $this->password);
-            $stmt->bindParam(':role', $this->role);
+            // Insert new user
+            $insertQuery = "INSERT INTO users (username, email, password, role, first_name, last_name) VALUES (:username, :email, :password, :role, :first_name, :last_name)"; 
+            $insertStmt = $connection->prepare($insertQuery);
+            $insertStmt->bindParam(':username', $this->username);
+            $insertStmt->bindParam(':email', $this->email);
+            $insertStmt->bindParam(':password', $this->password);
+            $insertStmt->bindParam(':role', $this->role);
+            $insertStmt->bindParam(':first_name', $this->first_name);
+            $insertStmt->bindParam(':last_name', $this->last_name);
 
-            error_log("Executing insert query");
-            return $stmt->execute();
-        } catch (\PDOException $e) {
-            error_log("PDO Error: " . $e->getMessage());
-            echo "Error: " . $e->getMessage();
+            return $insertStmt->execute();
+        } catch (\PDOException $pdoException) {
+            error_log("PDO Error: " . $pdoException->getMessage());
             return false;
-        } catch (\Exception $e) {
-            error_log("Error: " . $e->getMessage());
-            echo "Error: " . $e->getMessage();
+        } catch (\Exception $exception) {
+            error_log("Error: " . $exception->getMessage());
             return false;
         }
     }

@@ -6,9 +6,22 @@ class AdminUser extends User
 {
     private $adminPrivileges;
 
-    public function __construct($username, $email, $password, $role)
+    public function __construct(
+        $username,
+        $email,
+        $password,
+        $role,
+        $first_name,
+        $last_name
+    )
     {
-        parent::__construct($username, $email, $password);
+        parent::__construct(
+            $username,
+            $email,
+            $password,
+            $first_name,
+            $last_name
+        );
         $this->role = $role;    
         $this->adminPrivileges = true;
     }
