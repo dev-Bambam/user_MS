@@ -26,22 +26,35 @@ class User
      */
     public function save(): bool
     {
+        error_log("Saving user: username=$this->username, email=$this->email, role=$this->role");
         try {
+            // Get database connection
             $db = Database::getInstance()->getConnection();
             if (!$db) {
                 throw new \Exception("Database connection is null.");
             }
 
-            $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)");
-            if (!$stmt) {
-                throw new \Exception("Failed to prepare SQL statement.");
+            // Check for duplicates (username and email)
+            error_log("Checking for duplicates");
+            $stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
+            $stmt->bindParam(':username', $this->username);
+            $stmt->bindParam(':email', $this->email);
+            $stmt->execute();
+            if ($stmt->fetchColumn() > 0) {
+                // Duplicate entry found
+                error_log("Duplicate entry found, aborting insert");
+                return false;  // Prevent insert and return false
             }
 
+            // Proceed with inserting the new user
+            error_log("Creating new user");
+            $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)");
             $stmt->bindParam(':username', $this->username);
             $stmt->bindParam(':email', $this->email);
             $stmt->bindParam(':password', $this->password);
             $stmt->bindParam(':role', $this->role);
 
+            error_log("Executing insert query");
             return $stmt->execute();
         } catch (\PDOException $e) {
             error_log("PDO Error: " . $e->getMessage());
@@ -53,6 +66,8 @@ class User
             return false;
         }
     }
+
+
     /**
      * Retrieves a user from the database by their ID.
      *

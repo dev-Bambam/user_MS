@@ -18,7 +18,7 @@ class UserFactory
         return match ($type) {
             'user' => new User($data['username'], $data['email'], $data['password']),
             'admin' => new AdminUser($data['username'], $data['email'], $data['password'], $data['role']),
-            default =>  "Invalid user type",
-        };
+            default =>  null,
+        }; 
     }
 }

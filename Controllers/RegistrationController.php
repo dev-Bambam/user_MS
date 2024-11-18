@@ -15,29 +15,21 @@ class RegistrationController
      * @param array $requestData Array of user data (e.g., username, email, password)
      * @return string Response JSON with success or error message
      */
-    public function register(array $requestData): String
+    public function register(array $requestData): string
     {
         // Step 1: Validate input data
-        if ($errors = $this->validateData($requestData)) { 
+        if ($errors = $this->validateData($requestData)) {
             http_response_code(400);
             return json_encode(['status' => 'error', 'errors' => $errors]);
-        }  
+        }
 
-        // Step 2: Check for existing email or username
-        // $db = Database::getInstance()->getConnection();
-        // if ($this->isDuplicateUser($requestData['email'], $requestData['username'], $db)) {
-        //     return json_encode(['status' => 'error', 'message' => 'Username or email already in use.']);
-        // }
-        
-        // Step 3: Create and save user instance using the Factory pattern
-        $user = UserFactory::createUser( $requestData);
+        // Step 2: Create and save user instance using the Factory pattern
+        $user = UserFactory::createUser($requestData);
         $response = $user->save()
             ? ['status' => 'success', 'message' => 'User registered successfully.']
             : ['status' => 'error', 'message' => 'User registration failed.'];
         return json_encode($response);
-        
     }
-
     /**
      * Validates registration data.
      *
@@ -62,18 +54,5 @@ class RegistrationController
 
         return $errors;
     }
-    /**
-     * Checks if a user with the given email or username already exists.
-     *
-     * @param string $email User's email to check
-     * @param string $username User's username to check
-     * @param \PDO $db The database connection
-     * @return bool True if duplicate exists, false otherwise
-     */ 
-    private function isDuplicateUser(string $email, string $username, $db): bool
-    {
-        $stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE email = :email OR username = :username");
-        $stmt->execute([':email' => $email, ':username' => $username]);
-        return $stmt->fetchColumn() > 0;
-    }
+
 }
