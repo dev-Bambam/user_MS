@@ -4,3 +4,30 @@
 [18-Nov-2024 14:13:00 UTC] Request Method: POST, Path: /index/register
 [18-Nov-2024 14:16:21 UTC] Request Method: POST, Path: /index/register
 [19-Nov-2024 12:23:28 UTC] Request Method: GET, Path: /index/register
+[19-Nov-2024 14:23:59 UTC] Request Method: POST, Path: /index/register
+[19-Nov-2024 14:25:16 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[19-Nov-2024 14:25:16 UTC] Request Method: POST, Path: /index/register
+[19-Nov-2024 14:26:59 UTC] PHP Fatal error:  Uncaught TypeError: Controllers\RegistrationController::register(): Argument #1 ($requestData) must be of type array, null given, called in /home/bambam/Desktop/User_MS/index.php on line 23 and defined in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php:19
+Stack trace:
+#0 /home/bambam/Desktop/User_MS/index.php(23): Controllers\RegistrationController->register(NULL)
+#1 /home/bambam/Desktop/User_MS/routes/Router.php(120): {closure}()
+#2 /home/bambam/Desktop/User_MS/index.php(40): routes\Router->run()
+#3 {main}
+  thrown in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php on line 19
+[19-Nov-2024 14:30:49 UTC] PHP Fatal error:  Uncaught TypeError: Controllers\RegistrationController::register(): Argument #1 ($requestData) must be of type array, null given, called in /home/bambam/Desktop/User_MS/index.php on line 23 and defined in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php:19
+Stack trace:
+#0 /home/bambam/Desktop/User_MS/index.php(23): Controllers\RegistrationController->register(NULL)
+#1 /home/bambam/Desktop/User_MS/routes/Router.php(120): {closure}()
+#2 /home/bambam/Desktop/User_MS/index.php(40): routes\Router->run()
+#3 {main}
+  thrown in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php on line 19
+[19-Nov-2024 14:30:53 UTC] PHP Fatal error:  Uncaught TypeError: Controllers\RegistrationController::register(): Argument #1 ($requestData) must be of type array, null given, called in /home/bambam/Desktop/User_MS/index.php on line 23 and defined in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php:19
+Stack trace:
+#0 /home/bambam/Desktop/User_MS/index.php(23): Controllers\RegistrationController->register(NULL)
+#1 /home/bambam/Desktop/User_MS/routes/Router.php(120): {closure}()
+#2 /home/bambam/Desktop/User_MS/index.php(40): routes\Router->run()
+#3 {main}
+  thrown in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php on line 19
+[19-Nov-2024 14:31:13 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[19-Nov-2024 14:31:13 UTC] Registration Error: Failed to send verification email.
+[19-Nov-2024 14:31:13 UTC] Request Method: POST, Path: /index/register

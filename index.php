@@ -15,14 +15,26 @@ use Controllers\RegistrationController;
 
 $router = new Router();
 
-// Register endpoint - POST
+// Register endpoint - POST 
 $router->post('/index/register', function () {
     $requestData = $_POST;
     $requestData = json_decode(file_get_contents('php://input'), true);
     $controller = new RegistrationController();
     $response = $controller->register($requestData); 
     echo $response;
-}); 
+});
+$router->get('/index/verify-email', function () {
+    $token = $_GET['token'] ?? null;
+
+    if (!$token) {
+        http_response_code(400);
+        echo json_encode(['status' => 'error', 'message' => 'Token is required.']);
+        return;
+    }
+
+    $controller = new \Controllers\EmailVerificationController();
+    echo $controller->verifyEmail($token);
+});
 
 // Run the router
 $router->run();

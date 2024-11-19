@@ -27,7 +27,7 @@ class RegistrationController
         // Step 2: Create and save user instance using the Factory pattern
         $user = UserFactory::createUser($requestData);
         $response = $user->save()
-            ? ['status' => 'success', 'message' => 'User registered successfully.']
+            ? ['status' => 'success', 'message' => 'User registered successfully. Verify your email.']
             : ['status' => 'error', 'message' => 'User registration failed.'];
     
         // Step 3: Generate and save token
