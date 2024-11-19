@@ -89,6 +89,35 @@ class User
             return null;
         }
     }
+    /**
+     * Retrieves the user's ID from the database using their username.
+     *
+     * The function queries the database to find the ID associated with the current user's username.
+     * Returns the user ID if found, or null if an error occurs or the user is not found.
+     *
+     * @return int|null The user ID if found, null on error or if not found.
+     */
+    public function getId(){
+        try {
+            $connection = Database::getInstance()->getConnection();
+            $query = "SELECT id FROM users WHERE username = :username";
+            $statement = $connection->prepare($query);
+            $statement->bindParam(':username', $this->username);
+            $statement->execute();
+            return $statement->fetchColumn();
+        } catch (\PDOException $exception) {
+            error_log("PDO Error: " . $exception->getMessage());
+            return null;
+        }
+    }
+    /**
+     * Retrieve the user's email from the User object.
+     *
+     * @return string The user's email address.
+     */
+    public function getEmail(){
+        return $this->email;
+    }
     
     /**
      * Update a user's profile data in the database.
