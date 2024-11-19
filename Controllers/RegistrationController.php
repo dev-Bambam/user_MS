@@ -31,27 +31,34 @@ class RegistrationController
         return json_encode($response);
     }
 
+
     /**
-     * Validates registration data.
+     * Validates user registration data.
      *
-     * @param array $data User data to validate
-     * @return array List of validation errors, empty if none found
+     * @param array $data Associative array containing user registration data
+     * @return array Associative array containing validation errors, if any
      */
     private function validateData(array $data): array
     {
         $errors = [];
 
-        if (strlen($data['username'] ?? '') < 3) {
-            $errors['username'] = 'Username must be at least 3 characters long.';
-        }
-
-        if (!filter_var($data['email'] ?? '', FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Email is required and must be a valid email address.';
-        }
-
-        if (strlen($data['password'] ?? '') < 6) {
-            $errors['password'] = 'Password must be at least 6 characters long.';
-        }
+        $errors = array_filter([
+            'username' => empty($data['username']) || strlen($data['username']) < 3
+                ? 'Username must be at least 3 characters long.'
+                : null,
+            'first_name' => empty($data['first_name'])
+                ? 'First name is required.'
+                : null,
+            'last_name' => empty($data['last_name'])
+                ? 'Last name is required.'
+                : null,
+            'email' => empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)
+                ? 'Email is required and must be a valid email address.'
+                : null,
+            'password' => empty($data['password']) || strlen($data['password']) < 6
+                ? 'Password must be at least 6 characters long.'
+                : null,
+        ]);
 
         return $errors;
     }

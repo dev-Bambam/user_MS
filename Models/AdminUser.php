@@ -6,24 +6,20 @@ class AdminUser extends User
 {
     private $adminPrivileges;
 
-    public function __construct(
-        $username,
-        $email,
-        $password,
-        $role,
-        $first_name,
-        $last_name
-    )
+    /**
+     * Construct a new AdminUser object.
+     *
+     * @param string $username Username (unique identifier)
+     * @param string $email Email address
+     * @param string $password Password
+     * @param string $firstName First name
+     * @param string $lastName Last name
+     * @param string $role Role (should be 'admin', default is 'admin')
+     */
+    public function __construct(string $username, string $email, string $password, string $firstName, string $lastName, string $role = 'admin')
     {
-        parent::__construct(
-            $username,
-            $email,
-            $password,
-            $first_name,
-            $last_name
-        );
-        $this->role = $role;    
-        $this->adminPrivileges = true;
+        parent::__construct($username, $email, $password, $firstName, $lastName, $role);
+        $this->adminPrivileges = true; // Indicate that this is an admin user
     }
 
     // Additional methods specific to admin users

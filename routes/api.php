@@ -23,28 +23,29 @@ $router->post('/api/register', function () {
     $controller->register($_POST);
     error_log("POST /api/register called.");
     echo json_encode(['status' => 'success', 'message' => 'Request received.']);
-}); // Removed [LoggingMiddleware::class] --> -->
+}); // Removed [LoggingMiddleware::class] 
 
-// // Login endpoint - POST
-// $router->post('/api/login', function () {
-//     $controller = new LoginController();
-//     $controller->login($_POST);
-// }); // Removed [LoggingMiddleware::class]
+// Login endpoint - POST
+$router->post('/api/login', function () {
+    $controller = new LoginController();
+    $controller->login($_POST);
+}); // Removed [LoggingMiddleware::class]
 
 // // Get User Profile endpoint - GET
-// $router->get('/api/user/profile', function () {
-//     $controller = new ProfileController();
-//     $controller->getProfile();
-// }); // Removed [AuthMiddleware::class, LoggingMiddleware::class]
+$router->get('/api/user/profile', function () {
+    $controller = new ProfileController();
+    $controller->getProfile();
+}); // Removed [AuthMiddleware::class, LoggingMiddleware::class]
 
 // // Update User Profile endpoint - PUT
-// $router->put('/api/user/profile', function () {
-//     $putData = json_decode(file_get_contents('php://input'), true);
-//     $controller = new ProfileController();
-//     $controller->updateProfile($putData);
-// }); // Removed [AuthMiddleware::class, LoggingMiddleware::class]
+$router->put('/api/user/profile', function () {
+    $putData = json_decode(file_get_contents('php://input'), true);
+    $controller = new ProfileController();
+    $controller->updateProfile($putData);
+}); // Removed [AuthMiddleware::class, LoggingMiddleware::class]
+
 // Run the router
-// $router->post('/api/register', function () {
-//     echo json_encode(['status' => 'success', 'message' => 'Request received!']);
-// });
+$router->post('/api/register', function () {
+    echo json_encode(['status' => 'success', 'message' => 'Request received!']);
+});
 // $router->run(); -->

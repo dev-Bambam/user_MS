@@ -27,7 +27,7 @@ class ProfileController
             }
 
             // Fetch user data from the database
-            $user = new User('', '', '');
+            $user = new User('', '', '','', '');
             $userData = $user->getUserById($userId);
 
             if (!$userData) {
@@ -67,7 +67,13 @@ class ProfileController
         }
 
         // Update the user's profile data
-        $user = new User($data['name'], $data['email'], $data['password']);
+        $user = new User(
+            $data['name'],
+            $data['email'],
+            $data['password'],
+            $data['firstName'],
+            $data['lastName']
+        );
         $decodedToken = JWTUtility::decodeToken($jwt);
         $userId = $decodedToken->userId;
         $updateResult = $user->updateUserProfile($userId, $data);

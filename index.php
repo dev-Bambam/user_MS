@@ -22,7 +22,7 @@ $router->post('/index/register', function () {
     $controller = new RegistrationController();
     $response = $controller->register($requestData); 
     echo $response;
-}) ; 
+}); 
 
 // Run the router
 $router->run();

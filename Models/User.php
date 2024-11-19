@@ -40,27 +40,25 @@ class User
             }
 
             // Check for duplicate username or email
-            $duplicateCheckQuery = "SELECT COUNT(*) FROM users WHERE username = :username OR email = :email";
-            $duplicateCheckStmt = $connection->prepare($duplicateCheckQuery);
-            $duplicateCheckStmt->bindParam(':username', $this->username);
-            $duplicateCheckStmt->bindParam(':email', $this->email);
-            $duplicateCheckStmt->execute();
+            $stmt = $connection->prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
+            $stmt->execute(['username' => $this->username, 'email' => $this->email]);
             
-            if ($duplicateCheckStmt->fetchColumn() > 0) {
+            if ($stmt->fetchColumn() > 0) {
                 return false; // Duplicate found, abort insert
             }
 
             // Insert new user
-            $insertQuery = "INSERT INTO users (username, email, password, role, first_name, last_name) VALUES (:username, :email, :password, :role, :first_name, :last_name)"; 
-            $insertStmt = $connection->prepare($insertQuery);
-            $insertStmt->bindParam(':username', $this->username);
-            $insertStmt->bindParam(':email', $this->email);
-            $insertStmt->bindParam(':password', $this->password);
-            $insertStmt->bindParam(':role', $this->role);
-            $insertStmt->bindParam(':first_name', $this->first_name);
-            $insertStmt->bindParam(':last_name', $this->last_name);
+            $stmt = $connection->prepare("INSERT INTO users (username, email, password, role, first_name, last_name) VALUES (:username, :email, :password, :role, :first_name, :last_name)");
+            $stmt->execute([
+                'username' => $this->username,
+                'email' => $this->email,
+                'password' => $this->password,
+                'role' => $this->role,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name
+            ]);
 
-            return $insertStmt->execute();
+            return true;
         } catch (\PDOException $pdoException) {
             error_log("PDO Error: " . $pdoException->getMessage());
             return false;
@@ -74,41 +72,43 @@ class User
     /**
      * Retrieves a user from the database by their ID.
      *
-     * @param int $id The ID of the user to retrieve.
+     * @param int $userId The ID of the user to retrieve.
      * @return array|null The user data as an associative array, or null if not found.
      */
-    public function getUserById($id)
+    public function getUserById(int $userId): ?array
     {
         try {
-            $db = Database::getInstance()->getConnection();
-            $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            return $stmt->fetch();
-        } catch (\PDOException $e) {
-            // Log error message if desired (e.g., using error logging library)
+            $connection = Database::getInstance()->getConnection();
+            $query = "SELECT * FROM users WHERE id = :id";
+            $statement = $connection->prepare($query);
+            $statement->bindParam(':id', $userId);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $exception) {
+            error_log("PDO Error: " . $exception->getMessage());
             return null;
         }
     }
     
     /**
-     * Updates a user's profile data in the database.
+     * Update a user's profile data in the database.
      *
      * @param int $id The ID of the user to update.
-     * @param array $data Associative array containing the user data to update (e.g., name, email).
+     * @param array $data Associative array containing the user data to update (e.g., first_name, email).
      * @return bool True if the update was successful, False otherwise.
      */
     public function updateUserProfile($id, $data)
     {
         try {
-            $db = Database::getInstance()->getConnection();
-            $stmt = $db->prepare("UPDATE users SET name = :name, email = :email WHERE id = :id");
-            $stmt->bindParam(':name', $data['name']);
-            $stmt->bindParam(':email', $data['email']);
-            $stmt->bindParam(':id', $id);
-            return $stmt->execute();
-        } catch (\PDOException $e) {
-            // Log error message if desired (e.g., using error logging library)
+            $connection = Database::getInstance()->getConnection();
+            $query = "UPDATE users SET first_name = :first_name, email = :email WHERE id = :id";
+            $statement = $connection->prepare($query);
+            $statement->bindParam(':first_name', $data['first_name']);
+            $statement->bindParam(':email', $data['email']);
+            $statement->bindParam(':id', $id);
+            return $statement->execute();
+        } catch (\PDOException $exception) {
+            error_log("PDO Error: " . $exception->getMessage());
             return false;
         }
     }

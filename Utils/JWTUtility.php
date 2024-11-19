@@ -23,7 +23,8 @@ class JWTUtility
             'data' => $userData
         ];
 
-return JWT::encode($payload, self::$secretKey, 'HS256');    }
+        return JWT::encode($payload, self::$secretKey, 'HS256');
+    }
 
     /**
      * Decodes a JWT token and returns the payload.
@@ -34,10 +35,11 @@ return JWT::encode($payload, self::$secretKey, 'HS256');    }
     public static function decodeToken(string $token)
     {
         try {
-$decoded = JWT::decode($token, new \Firebase\JWT\Key(self::$secretKey, 'HS256'));              return $decoded; // Return the decoded token
+            $decoded = JWT::decode($token, new \Firebase\JWT\Key(self::$secretKey, 'HS256'));
+            return $decoded; // Return the decoded token
         } catch (\Exception $e) {
             return null; // Invalid token
-        } 
+        }
     }
     /**
      * Extracts a JWT token from the Authorization header of the current HTTP request.
