@@ -1,39 +1,17 @@
- [18-Nov-2024 13:26:03 UTC] Request Method: POST, Path: /index/register
-[18-Nov-2024 13:30:29 UTC] Request Method: POST, Path: /index/register
-[18-Nov-2024 13:41:56 UTC] Request Method: POST, Path: /index/register
-[18-Nov-2024 14:13:00 UTC] Request Method: POST, Path: /index/register
-[18-Nov-2024 14:16:21 UTC] Request Method: POST, Path: /index/register
-[19-Nov-2024 12:23:28 UTC] Request Method: GET, Path: /index/register
-[19-Nov-2024 14:23:59 UTC] Request Method: POST, Path: /index/register
-[19-Nov-2024 14:25:16 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[19-Nov-2024 14:25:16 UTC] Request Method: POST, Path: /index/register
-[19-Nov-2024 14:26:59 UTC] PHP Fatal error:  Uncaught TypeError: Controllers\RegistrationController::register(): Argument #1 ($requestData) must be of type array, null given, called in /home/bambam/Desktop/User_MS/index.php on line 23 and defined in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php:19
-Stack trace:
-#0 /home/bambam/Desktop/User_MS/index.php(23): Controllers\RegistrationController->register(NULL)
-#1 /home/bambam/Desktop/User_MS/routes/Router.php(120): {closure}()
-#2 /home/bambam/Desktop/User_MS/index.php(40): routes\Router->run()
-#3 {main}
-  thrown in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php on line 19
-[19-Nov-2024 14:30:49 UTC] PHP Fatal error:  Uncaught TypeError: Controllers\RegistrationController::register(): Argument #1 ($requestData) must be of type array, null given, called in /home/bambam/Desktop/User_MS/index.php on line 23 and defined in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php:19
-Stack trace:
-#0 /home/bambam/Desktop/User_MS/index.php(23): Controllers\RegistrationController->register(NULL)
-#1 /home/bambam/Desktop/User_MS/routes/Router.php(120): {closure}()
-#2 /home/bambam/Desktop/User_MS/index.php(40): routes\Router->run()
-#3 {main}
-  thrown in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php on line 19
-[19-Nov-2024 14:30:53 UTC] PHP Fatal error:  Uncaught TypeError: Controllers\RegistrationController::register(): Argument #1 ($requestData) must be of type array, null given, called in /home/bambam/Desktop/User_MS/index.php on line 23 and defined in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php:19
-Stack trace:
-#0 /home/bambam/Desktop/User_MS/index.php(23): Controllers\RegistrationController->register(NULL)
-#1 /home/bambam/Desktop/User_MS/routes/Router.php(120): {closure}()
-#2 /home/bambam/Desktop/User_MS/index.php(40): routes\Router->run()
-#3 {main}
-  thrown in /home/bambam/Desktop/User_MS/Controllers/RegistrationController.php on line 19
-[19-Nov-2024 14:31:13 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[19-Nov-2024 14:31:13 UTC] Registration Error: Failed to send verification email.
-[19-Nov-2024 14:31:13 UTC] Request Method: POST, Path: /index/register
-[19-Nov-2024 14:35:41 UTC] Request Method: POST, Path: /index/register
-[19-Nov-2024 14:36:50 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[19-Nov-2024 14:36:50 UTC] Request Method: POST, Path: /index/register
-[19-Nov-2024 14:45:52 UTC] Request Method: GET, Path: /index/verify-email
-[19-Nov-2024 14:46:34 UTC] Request Method: GET, Path: /index/verify-email
-[19-Nov-2024 14:58:35 UTC] Request Method: GET, Path: /index/verify-email
+
+[20-Nov-2024 12:06:04 UTC] Request Method: OPTIONS, Path: /backend/index/register
+[20-Nov-2024 12:15:37 UTC] Request Method: POST, Path: /index/register
+[20-Nov-2024 12:23:13 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[20-Nov-2024 12:23:13 UTC] Request Method: POST, Path: /index/register
+[20-Nov-2024 12:26:57 UTC] Request Method: OPTIONS, Path: /index/register
+[20-Nov-2024 12:27:39 UTC] Request Method: OPTIONS, Path: /index/register
+[20-Nov-2024 12:28:51 UTC] Request Method: OPTIONS, Path: /index/register
+[20-Nov-2024 12:34:45 UTC] Request Method: OPTIONS, Path: /index/register
+[20-Nov-2024 12:34:48 UTC] Request Method: OPTIONS, Path: /index/register
+[20-Nov-2024 12:34:49 UTC] Request Method: OPTIONS, Path: /index/register
+[20-Nov-2024 12:40:23 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[20-Nov-2024 12:40:23 UTC] Request Method: POST, Path: /index/register
+[20-Nov-2024 12:40:23 UTC] Request Method: POST, Path: /index/register
+[20-Nov-2024 12:41:50 UTC] Request Method: POST, Path: /index/register
+[20-Nov-2024 12:45:27 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[20-Nov-2024 12:45:27 UTC] Request Method: POST, Path: /index/register
