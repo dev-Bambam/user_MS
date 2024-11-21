@@ -15,3 +15,5 @@
 [20-Nov-2024 12:41:50 UTC] Request Method: POST, Path: /index/register
 [20-Nov-2024 12:45:27 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
 [20-Nov-2024 12:45:27 UTC] Request Method: POST, Path: /index/register
+[21-Nov-2024 10:13:39 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[21-Nov-2024 10:13:39 UTC] Request Method: POST, Path: /index/register
