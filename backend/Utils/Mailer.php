@@ -45,7 +45,7 @@ class Mailer
             $this->mailer->Subject = 'Email Verification';
 
             // Email body
-            $verificationLink = "https://your-domain.com/verify-email?token=$token";
+            $verificationLink = "http://localhost:8000/verify-email?token=$token";
             $this->mailer->Body = "
                 <h1>Email Verification</h1>
                 <p>Thank you for registering! Please verify your email by clicking the link below:</p>

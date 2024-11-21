@@ -1,12 +1,18 @@
-// import React from "react";
-import Register from "./Register";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Register from "./pages/Register";
+import CheckEmail from "./pages/CheckEmail";
 
-const App = () => {
+function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <Register />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<Navigate to="/register" />} />
+        {/* Routes definition */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/check-email" element={<CheckEmail />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
