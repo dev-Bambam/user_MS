@@ -1,79 +1,8 @@
-
-[20-Nov-2024 12:06:04 UTC] Request Method: OPTIONS, Path: /backend/index/register
-[20-Nov-2024 12:15:37 UTC] Request Method: POST, Path: /index/register
-[20-Nov-2024 12:23:13 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[20-Nov-2024 12:23:13 UTC] Request Method: POST, Path: /index/register
-[20-Nov-2024 12:26:57 UTC] Request Method: OPTIONS, Path: /index/register
-[20-Nov-2024 12:27:39 UTC] Request Method: OPTIONS, Path: /index/register
-[20-Nov-2024 12:28:51 UTC] Request Method: OPTIONS, Path: /index/register
-[20-Nov-2024 12:34:45 UTC] Request Method: OPTIONS, Path: /index/register
-[20-Nov-2024 12:34:48 UTC] Request Method: OPTIONS, Path: /index/register
-[20-Nov-2024 12:34:49 UTC] Request Method: OPTIONS, Path: /index/register
-[20-Nov-2024 12:40:23 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[20-Nov-2024 12:40:23 UTC] Request Method: POST, Path: /index/register
-[20-Nov-2024 12:40:23 UTC] Request Method: POST, Path: /index/register
-[20-Nov-2024 12:41:50 UTC] Request Method: POST, Path: /index/register
-[20-Nov-2024 12:45:27 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[20-Nov-2024 12:45:27 UTC] Request Method: POST, Path: /index/register
-[21-Nov-2024 10:13:39 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 10:13:39 UTC] Request Method: POST, Path: /index/register
-[21-Nov-2024 11:01:31 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 11:01:31 UTC] Request Method: POST, Path: /index/register
-[21-Nov-2024 13:05:45 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:07:53 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:07:55 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:07:56 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:07:57 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:07:58 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:15:56 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:23:06 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:38 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:42 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:43 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:44 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:44 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:45 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:25:45 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:31:21 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:32:37 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:37:25 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:38:25 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:38:45 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:39:23 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:39:49 UTC] PHP Warning:  Undefined array key "firstname" in /home/bambam/Desktop/User_MS/backend/Factories/UserFactory.php on line 38
-[21-Nov-2024 13:39:49 UTC] PHP Warning:  Undefined array key "lastname" in /home/bambam/Desktop/User_MS/backend/Factories/UserFactory.php on line 39
-[21-Nov-2024 13:39:49 UTC] PDO Error: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'first_name' cannot be null
-[21-Nov-2024 13:39:49 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:42:23 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 13:42:23 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 13:43:22 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 13:43:22 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 14:13:54 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 14:13:54 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 14:22:20 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 14:22:20 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 14:24:58 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 14:24:58 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 14:29:16 UTC] Verification token created for user 72
-[21-Nov-2024 14:29:16 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 14:29:16 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 14:32:07 UTC] Verification token created for user 73
-[21-Nov-2024 14:32:07 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 14:32:07 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 14:42:42 UTC] Verification token created for user 74
-[21-Nov-2024 14:42:53 UTC] Mailer error: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[21-Nov-2024 14:42:53 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:15:32 UTC] Verification token created for user 75
-[21-Nov-2024 18:15:37 UTC] Mailer error: SMTP Error: Could not connect to SMTP host.
-[21-Nov-2024 18:15:37 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:15:38 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:16:32 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:19:09 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:27:12 UTC] Verification token created for user 76
-[21-Nov-2024 18:27:17 UTC] Mailer error: SMTP Error: Could not connect to SMTP host.
-[21-Nov-2024 18:27:17 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:55:44 UTC] Verification token created for user 77
-[21-Nov-2024 18:55:47 UTC] Request Method: POST, Path: /register
-[21-Nov-2024 18:59:56 UTC] Request Method: GET, Path: /verify-email
-[21-Nov-2024 19:14:25 UTC] Verification token created for user 78
-[21-Nov-2024 19:14:33 UTC] Request Method: POST, Path: /register
+[23-Nov-2024 14:15:09 UTC] Verification token created for user 83
+[23-Nov-2024 14:15:11 UTC] Request Method: POST, Path: /register
+[23-Nov-2024 14:17:17 UTC] Verification token created for user 84
+[23-Nov-2024 14:17:19 UTC] Request Method: POST, Path: /register
+[23-Nov-2024 14:18:01 UTC] Request Method: POST, Path: /register
+[23-Nov-2024 14:21:32 UTC] Request Method: POST, Path: /register
+[23-Nov-2024 14:23:02 UTC] Verification token created for user 85
+[23-Nov-2024 14:23:10 UTC] Request Method: POST, Path: /register

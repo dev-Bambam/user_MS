@@ -3,11 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Input from "./components/Input"; // Import the reusable Input component
 
-/**
- * Registers a user and redirects to the "Check Email" page.
- * @function Register
- * @returns {JSX.Element} The registration form.
- */
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -17,32 +12,39 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({}); // Validation errors
+  const [error, setError] = useState(""); // API error message
 
-/**
- * Handles the form submission for user registration.
- * Prevents default form submission, clears any existing error messages,
- * and sends a POST request to the server with the form data.
- * If registration is successful, redirects to the "Check Email" page.
- * If an error occurs, sets an error message to be displayed.
- *
- * @param {Event} e - The form submission event.
- */
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!formData.firstname) newErrors.firstname = "First name is required.";
+    if (!formData.lastname) newErrors.lastname = "Last name is required.";
+    if (!formData.username || formData.username.length < 3)
+      newErrors.username = "Username must be at least 3 characters long.";
+    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "A valid email is required.";
+    if (!formData.password || formData.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters long.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    console.log("Form data:", formData);
+    setError(""); // Clear API error
+    if (!validateFields()) return; // Stop submission if validation fails
+
     try {
       const { data } = await axios.post(
         "http://localhost:8000/register",
         formData
       );
-      console.log("Response:", data);
       if (data.status === "success") {
         navigate("/check-email"); // Redirect to the "Check Email" page
       }
     } catch (err) {
-      console.error("Error:", err);
       setError(err.response?.data?.message || "Something went wrong.");
     }
   };
@@ -69,6 +71,9 @@ const Register = () => {
                 setFormData({ ...formData, firstname: target.value })
               }
             />
+            {errors.firstname && (
+              <p className="text-red-500 text-sm">{errors.firstname}</p>
+            )}
           </div>
           <div className="w-full md:w-1/2 px-2">
             <Input
@@ -80,6 +85,9 @@ const Register = () => {
                 setFormData({ ...formData, lastname: target.value })
               }
             />
+            {errors.lastname && (
+              <p className="text-red-500 text-sm">{errors.lastname}</p>
+            )}
           </div>
         </div>
 
@@ -92,6 +100,7 @@ const Register = () => {
             setFormData({ ...formData, email: target.value })
           }
         />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
         <div className="flex flex-wrap -mx-2">
           <div className="w-full md:w-1/2 px-2">
@@ -104,6 +113,9 @@ const Register = () => {
                 setFormData({ ...formData, username: target.value })
               }
             />
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username}</p>
+            )}
           </div>
           <div className="w-full md:w-1/2 px-2">
             <Input
@@ -115,6 +127,9 @@ const Register = () => {
                 setFormData({ ...formData, password: target.value })
               }
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
           </div>
         </div>
 
