@@ -24,8 +24,8 @@ class UserFactory
                 $data['username'],
                 $data['email'],
                 $data['password'],
-                $data['first_name'],
-                $data['last_name'],
+                $data['firstname'],
+                $data['lastname'],
                 $role
             );
         }
@@ -35,8 +35,8 @@ class UserFactory
             $data['username'],
             $data['email'],
             $data['password'],
-            $data['first_name'],
-            $data['last_name']
+            $data['firstname'],
+            $data['lastname']
         ); 
     }
 }

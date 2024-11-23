@@ -19,18 +19,30 @@ const Register = () => {
   });
   const [error, setError] = useState("");
 
+/**
+ * Handles the form submission for user registration.
+ * Prevents default form submission, clears any existing error messages,
+ * and sends a POST request to the server with the form data.
+ * If registration is successful, redirects to the "Check Email" page.
+ * If an error occurs, sets an error message to be displayed.
+ *
+ * @param {Event} e - The form submission event.
+ */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    console.log("Form data:", formData);
     try {
       const { data } = await axios.post(
         "http://localhost:8000/register",
         formData
       );
+      console.log("Response:", data);
       if (data.status === "success") {
         navigate("/check-email"); // Redirect to the "Check Email" page
       }
     } catch (err) {
+      console.error("Error:", err);
       setError(err.response?.data?.message || "Something went wrong.");
     }
   };

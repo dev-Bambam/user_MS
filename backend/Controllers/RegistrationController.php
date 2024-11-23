@@ -1,8 +1,6 @@
 <?php 
 namespace Controllers;
-use Models\User;
 use Factories\UserFactory;
-use Models\Database;
 use Utils\Mailer;
 
 /**
@@ -33,7 +31,8 @@ class RegistrationController
         // Step 3: Generate and save token
         if ($response['status'] === 'success') {
             $token = bin2hex(random_bytes(32));
-            $this->saveVerificationToken($user->getId(), $token);
+            $emailVerificationController = new EmailVerificationController();
+            $emailVerificationController->createVerificationToken($user->getId(), $token);
         }
     
         // Step 4: Send verification email
@@ -44,23 +43,6 @@ class RegistrationController
     
         return json_encode($response);
     }
-    
-    /**
-     * Saves the verification token to the email_verifications table.
-     *
-     * @param int $userId The ID of the user.
-     * @param string $token The verification token.
-     */
-    private function saveVerificationToken(int $userId, string $token): void
-    {
-        $connection = Database::getInstance()->getConnection();
-        $query = "INSERT INTO email_verifications (user_id, token) VALUES (:user_id, :token)";
-        $stmt = $connection->prepare($query);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->bindParam(':token', $token);
-        $stmt->execute();
-    }
-
 
     /**
      * Validates user registration data.
@@ -76,10 +58,10 @@ class RegistrationController
             'username' => empty($data['username']) || strlen($data['username']) < 3
                 ? 'Username must be at least 3 characters long.'
                 : null,
-            'first_name' => empty($data['first_name'])
+            'first_name' => empty($data['firstname'])
                 ? 'First name is required.'
                 : null,
-            'last_name' => empty($data['last_name'])
+            'last_name' => empty($data['lastname'])
                 ? 'Last name is required.'
                 : null,
             'email' => empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)

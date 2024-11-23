@@ -5,8 +5,8 @@ use Models\Database;
 use PDO;
 
 class User
-{   private $first_name;
-    private $last_name;
+{   private $firstname;
+    private $lastname;
     private $username;
     private $email;
     private $password;
@@ -16,8 +16,8 @@ class User
     {
         $this->username = $username;
         $this->email = $email;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
+        $this->firstname = $first_name;
+        $this->lastname = $last_name;
         $this->role = $role;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
@@ -54,8 +54,8 @@ class User
                 'email' => $this->email,
                 'password' => $this->password,
                 'role' => $this->role,
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name
+                'first_name' => $this->firstname,
+                'last_name' => $this->lastname
             ]);
 
             return true;
