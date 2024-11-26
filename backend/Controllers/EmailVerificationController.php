@@ -75,14 +75,11 @@ class EmailVerificationController
 
         // Set the token expiration time (24 hours from now)
         $expiresAt = date('Y-m-d H:i:s', strtotime('+24 hours')); // 24 hours expiry
-        echo ("Creating verification token for user $userId with token $token and expiry time $expiresAt");
-
         // Insert the token into the database with the expiration time
         $stmt = $db->prepare("INSERT INTO email_verifications (user_id, token, expires_at) VALUES (:user_id, :token, :expires_at)");
         $stmt->bindParam(':user_id', $userId);
         $stmt->bindParam(':token', $token);
         $stmt->bindParam(':expires_at', $expiresAt);
         $stmt->execute();
-        error_log("Verification token created for user $userId");
     }
 }

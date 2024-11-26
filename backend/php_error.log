@@ -1,8 +1,12 @@
-[23-Nov-2024 14:15:09 UTC] Verification token created for user 83
-[23-Nov-2024 14:15:11 UTC] Request Method: POST, Path: /register
-[23-Nov-2024 14:17:17 UTC] Verification token created for user 84
-[23-Nov-2024 14:17:19 UTC] Request Method: POST, Path: /register
-[23-Nov-2024 14:18:01 UTC] Request Method: POST, Path: /register
-[23-Nov-2024 14:21:32 UTC] Request Method: POST, Path: /register
-[23-Nov-2024 14:23:02 UTC] Verification token created for user 85
-[23-Nov-2024 14:23:10 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 08:19:49 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 08:27:18 UTC] Verification token created for user 86
+[25-Nov-2024 08:27:20 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 08:35:04 UTC] Creating verification token for user 87 with token e8f5be7b82a8a2acd79fde57a19e24d600031611fcaf9430dee71662c27c4692 and expiry time 2024-11-26 08:35:04
+[25-Nov-2024 08:35:04 UTC] Verification token created for user 87
+[25-Nov-2024 08:35:07 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 08:35:57 UTC] Creating verification token for user 88 with token f8a7e0755ff96cc69cb2c5def35d1bff448152e98496f30694486a721cd9cb93 and expiry time 2024-11-26 08:35:57
+[25-Nov-2024 08:35:57 UTC] Verification token created for user 88
+[25-Nov-2024 08:35:59 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 08:43:38 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 13:37:38 UTC] Request Method: POST, Path: /register
+[25-Nov-2024 13:39:00 UTC] Request Method: POST, Path: /register

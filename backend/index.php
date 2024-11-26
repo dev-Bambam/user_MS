@@ -29,7 +29,7 @@ $router->post('/register', function () {
     $requestData = json_decode(file_get_contents('php://input'), true);
     $controller = new RegistrationController();
     $response = $controller->register($requestData); 
-    return $response;
+    echo $response;
 });
 $router->get('/verify-email', function () {
     $token = $_GET['token'] ?? null;

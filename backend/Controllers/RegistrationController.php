@@ -24,10 +24,14 @@ class RegistrationController
     
         // Step 2: Create and save user instance using the Factory pattern
         $user = UserFactory::createUser($requestData);
-        $response = $user->save()
-            ? ['status' => 'success', 'message' => 'User registered successfully. check your email for verification.']
-            : ['status' => 'error', 'message' => 'User registration failed.'];
-    
+        $response = $user->save();
+
+        if ($response['status'] === 'error') {
+            http_response_code(400);
+            return json_encode($response); // Return specific error messages
+        }
+
+
         // Step 3: Generate and save token
         if ($response['status'] === 'success') {
             $token = bin2hex(random_bytes(32));
@@ -58,10 +62,10 @@ class RegistrationController
             'username' => empty($data['username']) || strlen($data['username']) < 3
                 ? 'Username must be at least 3 characters long.'
                 : null,
-            'first_name' => empty($data['firstname'])
+            'firstname' => empty($data['firstname'])
                 ? 'First name is required.'
                 : null,
-            'last_name' => empty($data['lastname'])
+            'lastname' => empty($data['lastname'])
                 ? 'Last name is required.'
                 : null,
             'email' => empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)

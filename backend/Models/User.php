@@ -24,14 +24,15 @@ class User
 
 
 
+  
     /**
-     * Save the user to the database.
-     * 
-     * Checks for duplicate username or email before inserting the user.
-     * 
-     * @return bool True if the user was inserted successfully, False if a duplicate was found or an error occurred.
+     * Save a new user in the database.
+     *
+     * @return array with a status key (success or error) and an optional message or errors array
+     * @throws \PDOException if a PDO error occurs
+     * @throws \Exception if an unexpected error occurs
      */
-    public function save(): bool
+    public function save(): array
     {
         try {
             $connection = Database::getInstance()->getConnection();
@@ -40,11 +41,19 @@ class User
             }
 
             // Check for duplicate username or email
-            $stmt = $connection->prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
+            $stmt = $connection->prepare("SELECT username, email FROM users WHERE username = :username OR email = :email");
             $stmt->execute(['username' => $this->username, 'email' => $this->email]);
-            
-            if ($stmt->fetchColumn() > 0) {
-                return false; // Duplicate found, abort insert
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                $errors = [];
+                if ($result['username'] === $this->username) {
+                    $errors['username'] = 'Username already exists.';
+                }
+                if ($result['email'] === $this->email) {
+                    $errors['email'] = 'Email already exists.';
+                }
+                return ['status' => 'error', 'errors' => $errors]; // Return detailed errors
             }
 
             // Insert new user
@@ -58,15 +67,16 @@ class User
                 'last_name' => $this->lastname
             ]);
 
-            return true;
+            return ['status' => 'success'];
         } catch (\PDOException $pdoException) {
             error_log("PDO Error: " . $pdoException->getMessage());
-            return false;
+            return ['status' => 'error', 'message' => 'An error occurred while saving the user.'];
         } catch (\Exception $exception) {
             error_log("Error: " . $exception->getMessage());
-            return false;
+            return ['status' => 'error', 'message' => 'An unexpected error occurred.'];
         }
     }
+
 
 
     /**
