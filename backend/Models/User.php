@@ -128,6 +128,11 @@ class User
     public function getEmail(){
         return $this->email;
     }
+
+
+    public function getUsername(){
+        return $this->username;
+    }
     
     /**
      * Update a user's profile data in the database.

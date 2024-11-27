@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 use PDO;
-// models/Database.php
+use Dotenv\Dotenv;
 
 /**
  * Database class handles the connection to the MySQL database
@@ -30,15 +30,15 @@ class Database
      */
     private function __construct()
     {
-        // Database configuration
-        $host = 'localhost';         // Database server (e.g., localhost)
-        $dbname = 'student_cash';     // Database name
-        $username = 'root';       // Database username
-        $password = '';   // Database password
-        $charset = 'utf8mb4';        // Character set to support UTF-8
+        // Load environment variables from the .env file
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/..'); // Adjust the path if necessary
+        $dotenv->load();
+
+        // Get the configuration from the config/database.php file
+        $config = require __DIR__ . '/../config/database.php';
 
         // Data Source Name (DSN) specifies the database type and connection parameters
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
+        $dsn = "mysql:host={$config['host']};dbname={$config['database']};charset={$config['charset']}";
 
         // Options for the PDO connection to handle errors and other settings
         $options = [
@@ -49,7 +49,7 @@ class Database
 
         try {
             // Create a new PDO instance for database connection
-            $this->connection = new PDO($dsn, $username, $password, $options);
+            $this->connection = new PDO($dsn, $config['username'], $config['password'], $options);
         } catch (\PDOException $e) {
             // Handle any errors that occur during the connection
             die("Database connection failed: " . $e->getMessage());

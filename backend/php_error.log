@@ -1,18 +1,16 @@
-[25-Nov-2024 08:19:49 UTC] Request Method: POST, Path: /register
-[25-Nov-2024 08:27:18 UTC] Verification token created for user 86
-[25-Nov-2024 08:27:20 UTC] Request Method: POST, Path: /register
-[25-Nov-2024 08:35:04 UTC] Creating verification token for user 87 with token e8f5be7b82a8a2acd79fde57a19e24d600031611fcaf9430dee71662c27c4692 and expiry time 2024-11-26 08:35:04
-[25-Nov-2024 08:35:04 UTC] Verification token created for user 87
-[25-Nov-2024 08:35:07 UTC] Request Method: POST, Path: /register
-[25-Nov-2024 08:35:57 UTC] Creating verification token for user 88 with token f8a7e0755ff96cc69cb2c5def35d1bff448152e98496f30694486a721cd9cb93 and expiry time 2024-11-26 08:35:57
-[25-Nov-2024 08:35:57 UTC] Verification token created for user 88
-[25-Nov-2024 08:35:59 UTC] Request Method: POST, Path: /register
-[25-Nov-2024 08:43:38 UTC] Request Method: POST, Path: /register
-[25-Nov-2024 13:37:38 UTC] Request Method: POST, Path: /register
-[25-Nov-2024 13:39:00 UTC] Request Method: POST, Path: /register
-[26-Nov-2024 08:55:00 UTC] Request Method: POST, Path: /register
-[26-Nov-2024 08:55:13 UTC] Request Method: POST, Path: /register
-[26-Nov-2024 08:55:15 UTC] Request Method: POST, Path: /register
-[26-Nov-2024 08:55:34 UTC] Request Method: POST, Path: /register
-[26-Nov-2024 08:57:27 UTC] Request Method: POST, Path: /register
-[26-Nov-2024 09:00:56 UTC] Request Method: POST, Path: /register
+[26-Nov-2024 13:08:14 UTC] Mailer error: SMTP Error: Could not authenticate.
+[26-Nov-2024 13:08:14 UTC] Request Method: POST, Path: /register
+[26-Nov-2024 13:22:07 UTC] PHP Fatal error:  Uncaught Dotenv\Exception\InvalidFileException: Failed to parse dotenv file. Encountered unexpected whitespace at [iiiw ulvu jrwh ivyv]. in /home/bambam/Desktop/User_MS/backend/vendor/vlucas/phpdotenv/src/Parser/Parser.php:30
+Stack trace:
+#0 /home/bambam/Desktop/User_MS/backend/vendor/graham-campbell/result-type/src/Error.php(119): Dotenv\Parser\Parser::Dotenv\Parser\{closure}('Encountered une...')
+#1 /home/bambam/Desktop/User_MS/backend/vendor/vlucas/phpdotenv/src/Parser/Parser.php(29): GrahamCampbell\ResultType\Error->mapError(Object(Closure))
+#2 /home/bambam/Desktop/User_MS/backend/vendor/vlucas/phpdotenv/src/Dotenv.php(222): Dotenv\Parser\Parser->parse('SMTP_HOST=smtp....')
+#3 /home/bambam/Desktop/User_MS/backend/index.php(23): Dotenv\Dotenv->load()
+#4 {main}
+  thrown in /home/bambam/Desktop/User_MS/backend/vendor/vlucas/phpdotenv/src/Parser/Parser.php on line 30
+[26-Nov-2024 13:25:33 UTC] Request Method: POST, Path: /register
+[26-Nov-2024 13:53:41 UTC] Request Method: POST, Path: /register
+[26-Nov-2024 13:54:14 UTC] Request Method: GET, Path: /verify-email
+[26-Nov-2024 14:10:45 UTC] Request Method: POST, Path: /register
+[26-Nov-2024 14:52:23 UTC] Request Method: POST, Path: /register
+[26-Nov-2024 14:52:43 UTC] Request Method: POST, Path: /register

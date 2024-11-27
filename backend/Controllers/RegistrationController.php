@@ -24,6 +24,7 @@ class RegistrationController
     
         // Step 2: Create and save user instance using the Factory pattern
         $user = UserFactory::createUser($requestData);
+      
         $response = $user->save();
 
         if ($response['status'] === 'error') {
@@ -42,7 +43,7 @@ class RegistrationController
         // Step 4: Send verification email
         if ($response['status'] === 'success') {
             $mailer = new Mailer();
-            $mailer->sendVerificationEmail($user->getEmail(), $token);
+            $mailer->sendVerificationEmail($user->getEmail(), $user->getUsername(), $token);
         }
     
         return json_encode($response);

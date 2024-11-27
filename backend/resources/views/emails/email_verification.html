@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #1d3557;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .header h1 {
+            font-size: 26px;
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            color: #333333;
+            margin: 15px 0;
+        }
+        .content a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #457b9d;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .content a:hover {
+            background-color: #1d3557;
+        }
+        .footer {
+            background-color: #f1faee;
+            text-align: center;
+            padding: 10px 0;
+            color: #333333;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #1d3557;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Reflex!</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{username}},</p>
+            <p>
+                We're thrilled to have you join the Reflex community! You're just one step away from unlocking your full access.
+            </p>
+            <p>
+                Click the button below to verify your email address and activate your account. It only takes a moment, and you'll be ready to explore all the amazing features we have to offer.
+            </p>
+            <a href="{{verificationLink}}">Verify Your Email</a>
+            <p>
+                If you didn't create this account, no worries! Simply ignore this email, and we’ll take care of the rest.
+            </p>
+            <p>
+                Cheers,<br>
+                The Reflex Team
+            </p>
+        </div>
+        <div class="footer">
+            <p>Need help? <a href="mailto:support@reflex.com">Contact Support</a></p>
+        </div>
+    </div>
+</body>
+</html>

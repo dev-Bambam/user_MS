@@ -18,6 +18,10 @@ use routes\Router;
 // Load any necessary files, like autoload and JWT utility classes
 require_once 'autoload.php';
 require_once 'vendor/autoload.php';
+// Load environment variables from .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 
 use Controllers\RegistrationController;
 

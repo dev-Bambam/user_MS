@@ -31,10 +31,13 @@ const Register = () => {
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear API error
-    if (!validateFields()) return; // Stop submission if validation fails
+    setError("");
+    if (!validateFields()) return;
+    setIsSubmitting(true); // Set loading state
 
     try {
       const { data } = await axios.post(
@@ -42,12 +45,29 @@ const Register = () => {
         formData
       );
       if (data.status === "success") {
-        navigate("/check-email"); // Redirect to the "Check Email" page
+        navigate("/check-email");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong.");
+      if (err.response?.data?.errors) {
+        setErrors(err.response.data.errors);
+      } else {
+        setError(err.response?.data?.message || "Something went wrong.");
+      }
+    } finally {
+      setIsSubmitting(false); // Reset loading state
     }
   };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Clear individual field error
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: null });
+    }
+  };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -67,9 +87,7 @@ const Register = () => {
               name="firstname"
               placeholder="First Name"
               value={formData.firstname}
-              onChange={({ target }) =>
-                setFormData({ ...formData, firstname: target.value })
-              }
+              onChange={handleInputChange}
             />
             {errors.firstname && (
               <p className="text-red-500 text-sm">{errors.firstname}</p>
@@ -81,9 +99,7 @@ const Register = () => {
               name="lastname"
               placeholder="Last Name"
               value={formData.lastname}
-              onChange={({ target }) =>
-                setFormData({ ...formData, lastname: target.value })
-              }
+              onChange={handleInputChange}
             />
             {errors.lastname && (
               <p className="text-red-500 text-sm">{errors.lastname}</p>
@@ -96,9 +112,7 @@ const Register = () => {
           name="email"
           placeholder="Email"
           value={formData.email}
-          onChange={({ target }) =>
-            setFormData({ ...formData, email: target.value })
-          }
+          onChange={handleInputChange}
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
@@ -109,9 +123,7 @@ const Register = () => {
               name="username"
               placeholder="Username"
               value={formData.username}
-              onChange={({ target }) =>
-                setFormData({ ...formData, username: target.value })
-              }
+              onChange={handleInputChange}
             />
             {errors.username && (
               <p className="text-red-500 text-sm">{errors.username}</p>
@@ -123,9 +135,7 @@ const Register = () => {
               name="password"
               placeholder="Password"
               value={formData.password}
-              onChange={({ target }) =>
-                setFormData({ ...formData, password: target.value })
-              }
+              onChange={handleInputChange}
             />
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password}</p>
@@ -135,9 +145,12 @@ const Register = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-3 rounded mt-4 hover:bg-blue-600 transition"
+          disabled={isSubmitting}
+          className={`w-full bg-blue-500 text-white py-3 rounded mt-4 ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+          } transition`}
         >
-          Register
+          {isSubmitting ? "Registering..." : "Register"}
         </button>
       </form>
     </div>
