@@ -59,6 +59,4 @@ class Mailer
             return false;
         }
     }
-
-
 }

@@ -156,4 +156,66 @@ class User
             return false;
         }
     }
+
+    // Other methods like save(), getId(), etc. remain unchanged
+
+    /**
+     * Find a user by email.
+     *
+     * @param string $email
+     * @return array|null
+     */
+    public static function findByEmail(string $email): ?array
+    {
+        try {
+            $connection = Database::getInstance()->getConnection();
+            $query = "SELECT * FROM users WHERE email = :email";
+            $statement = $connection->prepare($query);
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (\PDOException $exception) {
+            error_log("PDO Error: " . $exception->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Find a user by ID.
+     *
+     * @param int $id
+     * @return array|null
+     */
+    public static function findById(int $id): ?array
+    {
+        try {
+            $connection = Database::getInstance()->getConnection();
+            $query = "SELECT * FROM users WHERE id = :id";
+            $statement = $connection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (\PDOException $exception) {
+            error_log("PDO Error: " . $exception->getMessage());
+            return null;
+        }
+    }
+    /**
+     * Mark a user's email as verified.
+     *
+     * @param int $userId
+     * @return bool True if the update was successful, false otherwise.
+     */
+    public static function markEmailAsVerified(int $userId): bool
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->prepare("UPDATE users SET email_verified = 1 WHERE id = :id");
+            $stmt->bindParam(':id', $userId);
+            return $stmt->execute();
+        } catch (\PDOException $exception) {
+            error_log("PDO Error: " . $exception->getMessage());
+            return false;
+        }
+    }
 }
