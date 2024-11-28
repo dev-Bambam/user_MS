@@ -35,7 +35,11 @@ class ResendVerificationController
         EmailVerification::deleteByUserId($user['id']); // Remove any existing tokens
         EmailVerification::create($user['id'], $newToken); // Create a new token
 
-        // Step 4: Send the email
+        // Step 4: ReSend the email
+        // Attempt to send a verification email to the user.
+        // The email includes a link with a verification token for the user to verify their email address.
+        // The Mailer utility is used to send the email, which requires the recipient's email address,
+        // the user's username, and the newly generated token.
         $emailSent = (new Mailer())->sendVerificationEmail(
             $email,
             $user['username'],

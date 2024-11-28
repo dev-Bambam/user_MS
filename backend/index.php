@@ -35,6 +35,23 @@ $router->post('/register', function () {
     $response = $controller->register($requestData); 
     echo $response;
 });
+// Route: POST /api/resend-verification
+use Controllers\ResendVerificationController;
+
+$router->post('/api/resend-verification', function () {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $email = $data['email'] ?? null;
+
+    if (!$email) {
+        http_response_code(400);
+        echo json_encode(['status' => 'error', 'message' => 'Email is required.']);
+        return;
+    }
+
+    $controller = new ResendVerificationController();
+    echo $controller->resendVerification($email);
+});
+
 $router->get('/verify-email', function () {
     $token = $_GET['token'] ?? null;
 
