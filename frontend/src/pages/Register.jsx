@@ -45,7 +45,7 @@ const Register = () => {
         formData
       );
       if (data.status === "success") {
-        navigate("/check-email");
+        navigate("/check-email", { state: { email: formData.email } });;
       }
     } catch (err) {
       if (err.response?.data?.errors) {

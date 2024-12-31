@@ -1,8 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useLocation } from "react-router-dom";
 const CheckEmail = () => {
+  const location = useLocation();
+  const email = location.state?.email; // Access the email prop passed from Register
+
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
 
@@ -11,8 +14,10 @@ const CheckEmail = () => {
     setError(null);
 
     try {
-      const email = "user@example.com"; // Replace with user email from state/context
-      const response = await axios.post("/api/resend-verification", { email });
+      const response = await axios.post(
+        "http://localhost:8000/api/resend-verification",
+        { email }
+      );
       setMessage(response.data.message);
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");

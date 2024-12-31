@@ -33,7 +33,7 @@ $router->post('/register', function () {
     $requestData = json_decode(file_get_contents('php://input'), true);
     $controller = new RegistrationController();
     $response = $controller->register($requestData); 
-    echo $response;
+    return $response;
 });
 // Route: POST /api/resend-verification
 use Controllers\ResendVerificationController;
